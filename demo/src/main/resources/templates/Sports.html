@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RASBET</title>
+
+    <style data-tag="reset-style-sheet">
+        html { line-height: 1.15;}
+        body {  margin: 0;}
+        * {  box-sizing: border-box;  border-width: 0;  border-style: solid;}
+        p,li,ul,pre,div,h1,h2,h3,h4,h5,h6 {  margin: 0;  padding: 0;}
+        button {  background-color: transparent;}
+        button,input,optgroup,select,textarea {  font-family: inherit;  font-size: 100%;  line-height: 1.15;  margin: 0;}
+        button,select {  text-transform: none;}
+        button,[type="button"],[type="reset"],[type="submit"]
+        button::-moz-focus-inner,[type="button"]::-moz-focus-inner,[type="reset"]::-moz-focus-inner,[type="submit"]::-moz-focus-inner {  border-style: none;  padding: 0;}
+        button:-moz-focus,[type="button"]:-moz-focus,[type="reset"]:-moz-focus,[type="submit"]:-moz-focus {  outline: 1px dotted ButtonText;}
+        a {  color: inherit;  text-decoration: inherit;}
+        input {  padding: 2px 4px;}
+        img {  display: block;}
+        html { scroll-behavior: smooth  }
+    </style>
+    <style data-tag="default-style-sheet">
+        html {
+          font-family: Inter;
+          font-size: 16px;
+        }
+
+        body {
+          font-weight: 400;
+          font-style: normal;
+          text-decoration: none;
+          text-transform: none;
+          letter-spacing: normal;
+          line-height: 1.15;
+          color: var(--dl-color-gray-black);
+          background-color: var(--dl-color-gray-white);
+
+        }
+    </style>
+        <link rel="stylesheet"
+              href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&amp;display=swap"
+              data-tag="font" />
+        <link rel="stylesheet"
+              href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&amp;display=swap"
+              data-tag="font" />
+        <link rel="stylesheet"
+              href="https://fonts.googleapis.com/css2?family=Quattrocento+Sans:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap"
+              data-tag="font" />
+    </head>
+
+    <body>
+    <div>
+    <link th:href="@{/css/Header.css}" rel="stylesheet" />
+    <link th:href="@{/css/Sports.css}" rel="stylesheet" />
+    <link th:href="@{/css/style.css}" rel="stylesheet" />
+        <link th:href="@{/css/Profile.css}" rel="stylesheet" />
+
+
+
+    <header data-role="Header" class="header">
+      <img alt="logo" th:src="@{/IMAGES/Logo.png}" class="header-image" />
+      <div class="header-nav">
+        <nav class="navigation-nav ">
+          <a class="navigation-link" onclick="redirectProfile(document.getElementById('email').innerText)">
+            <span>Perfil</span>
+            <!--MyFunction(this)-->
+          </a>
+          <div class="dropdown">
+            <a onclick="redirectSports(document.getElementById('email').innerText, 'AllSports')" class="highlight">
+              <span>Desportos</span>
+            </a>
+            <div class="dropdown-content">
+              <a onclick="redirectSports(document.getElementById('email').innerText, 'AllSports')">Todos</a>
+              <a onclick="redirectSports(document.getElementById('email').innerText, 'Football')">Futebol</a>
+              <a onclick="redirectSports(document.getElementById('email').innerText, 'Basket')">Basquetebol</a>
+              <a onclick="redirectSports(document.getElementById('email').innerText, 'Tenis')">Ténis</a>
+              <a onclick="redirectSports(document.getElementById('email').innerText, 'MotoGP')">MotoGP</a>
+            </div>
+          </div>
+          <a class="navigation-link" onclick="redirectBets(document.getElementById('email').innerText)">
+            <span>Apostas</span>
+          </a>
+          <a class="navigation-link" onclick="redirectTransactions(document.getElementById('email').innerText)">
+            <span>Transações</span>
+          </a>
+        </nav>
+      </div>
+      <span>
+          <span class="header-text"> Bem vindo, </span><span class="header-text" id="Name"></span>
+          <br />
+        </span>
+    </header>
+
+    <th:block th:if="${not #lists.isEmpty(games)}">
+        <div th:each="game : ${games}">
+            <div class="sports-container">
+                <div class="sports-container01">
+                    <div class="sports-container02">
+                        <span class="sports-text03">
+                            <div th:each="g, stats: ${game.participantsOdds}">
+                              <div th:text="${g.key}"></div>
+                              <th:block th:if="${stats.index + 1 != game.participantsOdds.size()}"> VS </th:block>
+                            </div>
+
+                        </span>
+                        <span class="sports-text06">
+                            <div th:text="${game.date}"></div>
+                            <br />
+                        </span>
+                    </div>
+                    <div class="sports-container13">
+                        <th:block th:each="g, stats: ${game.participantsOdds}">
+                            <!-- primeira caixa -->
+                            <th:block th:if="${(stats.index%3) eq 0}">
+                                <button class="sports-button" style="cursor: pointer;" th:id = ${game.idGame} th:value=${stats.index+1} onclick="redirectReceipt(email, this.id, this.value)">
+                                    <div class="sports-text09" >
+                                        <div text="games.participantsOdds"></div>
+                                        <div th:text="${g.key}"></div>
+                                        <div text="participantsOdds"></div>
+                                        <div th:text="${g.value}"></div>
+
+                                    </div>
+                                </button>
+                            </th:block>
+                            <th:block th:if="${game.x != 0 and (stats.index%3) eq 0}">
+                                <!-- segunda caixa caso empate-->
+                                <button class="sports-button1" style="cursor: pointer;" th:id = ${game.idGame} th:value=X onclick="redirectReceipt(email, this.id, this.value)">
+                                    <span class="sports-text09">
+                                      <span>Empate</span>
+                                      <div th:text="${game.x}"></div>
+
+                                    </span>
+                                </button>
+                            </th:block>
+                            <th:block th:if="${(stats.index%3) != 0}">
+                                <!-- segunda e terceira caixa-->
+                                <button class="sports-button1" style="cursor: pointer;" th:id = ${game.idGame} th:value=${stats.index+1} onclick="redirectReceipt(email, this.id, this.value)">
+                                    <span class="sports-text09">
+                                      <div text="games.participantsOdds"></div>
+                                      <div th:text="${g.key}"></div>
+                                      <div text="participantsOdds"></div>
+                                      <div th:text="${g.value}"></div>
+
+                                    </span>
+                                </button>
+                            </th:block>
+                        </th:block>
+                    </div>
+
+
+                </div>
+
+                <th:block th:if="${game.getFollowed() eq true}">
+                    <button class="sports-button6" style="cursor: pointer;" th:id=${game.idGame} onclick="unfollowGame(document.getElementById('email').innerText,this.id)">Não Seguir</button>
+                </th:block>
+                <th:block th:if="${game.getFollowed() eq false}">
+                    <button class="sports-button6" style="cursor: pointer;" th:id=${game.idGame} onclick="followGame(document.getElementById('email').innerText,this.id)">Seguir</button>
+                </th:block>
+
+
+            </div>
+        </div>
+    </th:block>
+
+
+
+
+      <div class="sports-container03">
+          <span class="sports-text24">BOLETIM</span>
+          <div th:if="${current_bet.getGuesses().size() <= 1}" class="sports-container04">
+              <a class="sports-button4">Simples</a>
+              <a class="sports-button3">Múltiplas</a>
+          </div>
+          <div th:if="${current_bet.getGuesses().size() > 1}" class="sports-container04">
+              <a class="sports-button3">Simples</a>
+              <a class="sports-button4">Múltiplas</a>
+          </div>
+
+        <div th:each="guess : ${current_bet.getGuesses()}" th:if="${current_bet}" class="sports-container05">
+            <div class="sports-container06">
+
+              <span class="sports-text25">
+                <span th:text="${guess.get(4)}"></span>
+                <br />
+
+              </span>
+            <span class="sports-text28" style="cursor: pointer;" th:id="${guess.get(0)}" onclick="removeFromBet(document.getElementById('email').innerText,this.id)">X</span>
+          </div>
+          <div class="sports-container07">
+              <span th:if="${guess.get(1) eq 'X'}" class="sports-text29">
+                <span>Resultado: Empate </span>
+                <br />
+              </span>
+              <span th:unless="${guess.get(1) eq 'X'}" class="sports-text29">
+                <span>Vencedor do jogo: <span th:text="${guess.get(3)}"></span></span>
+                <br />
+
+              </span>
+            <span class="sports-text32">
+                <span>Cota : <span th:text="${guess.get(2)}"></span></span>
+                <br />
+              </span>
+          </div>
+        </div>
+
+
+        <div class="sports-container08">
+          <div class="sports-container09">
+              <span class="sports-text35">
+                <span>Cota : <span th:text="${current_bet.getPossible_earnings()}"></span></span>
+                <br />
+
+              </span>
+              <a class="sports-button5" style="cursor: pointer;" onclick="openPayments()">APOSTAR</a>
+
+          </div>
+        </div>
+      </div>
+
+      <!--POPUPS-->
+
+      <div class="payments-container" id="gradient"></div>
+
+      <!--TIPOS DE PAGAMENTOS-->
+      <div class="payments-container1" id="payments">
+          <span class="payments-pagamentos">
+            <span>PAGAMENTO</span>
+            <br />
+          </span>
+          <span class="parabens-text2" onclick="closePayments()" style="cursor: pointer;">X</span>
+          <div class="payments-container2" style="margin-top: var(--dl-space-space-twounits);">
+            <div class="payments-container3">
+                <span class="payments-metodo" style="margin-bottom: 15px;"> <span>Método de pagamento:</span> <br /></span>
+                <input id="montante" type="text" placeholder="0" class="sports-textinput input" />
+                <button class="payments-button" style="cursor: pointer;" onclick="payWithWallet(document.getElementById('email').innerText)">Debitar do saldo</button>
+            </div>
+
+
+          <img alt="image" th:src="@{/IMAGES/Multibanco.png}" class="payments-image" style="cursor: pointer;" onclick="openMultibanco()" />
+          <img alt="image" th:src="@{/IMAGES/MBWay.png}" class="payments-image1" style="cursor: pointer;" onclick="openMBWay()" />
+          <img alt="image" th:src="@{/IMAGES/VisaMastercard.png}" class="payments-image2" style="cursor: pointer;" onclick="openCartao()" />
+        </div>
+        <img th:src="@{/IMAGES/number1.png}" alt="image" class="payments-image3" />
+      </div>
+
+
+      <!--MULTIBANCO-->
+      <div class="payments-container1" id="multibanco">
+          <span class="payments-pagamentos">
+            <span>PAGAMENTO</span>
+            <br />
+          </span>
+        <img alt="image" th:src="@{/IMAGES/number2.png}" class="payments-image3" />
+        <div class="multibanco-container2">
+          <img alt="image" th:src="@{/IMAGES/Multibanco.png}" class="mbway-image" />
+            <div class="deposito">
+                <span class="depositar-texto">Insira o montante:</span>
+                <input id="montanteMultibanco" type="text" class="depositar-input">
+                <span class="depositar-texto">Referência:   123 456 789</span>
+            </div>
+
+            <div class="multibanco-container3">
+                <button onclick="openParabens()" class="multibanco-pagar button" style="cursor: pointer;"><span>VERIFICAR</span></button>
+                <button class="multibanco-cancelar button" onclick="closePayments()" style="cursor: pointer;">CANCELAR</button>
+            </div>
+        </div>
+        <span class="mbway-text2">
+            <span>Aguardamos o seu pagamento.</span>
+            <br />
+            <span>Por favor verifique a transação após a</span>
+            <br />
+            <span>transferência ter sido concluída.</span>
+            <br />
+          </span>
+      </div>
+
+
+      <!--MBWAY-->
+      <div class="payments-container1" id="mbway">
+          <span class="payments-pagamentos">
+            <span>PAGAMENTO</span>
+            <br />
+          </span>
+        <div class="payments-container2">
+          <img alt="image" th:src="@{/IMAGES/MBWay.png}" class="mbway-image" />
+            <div class="deposito">
+                <span class="depositar-texto">Insira o montante:</span>
+                <input id="montanteMBWay" type="text" class="depositar-input">
+
+                <div class="deposito-container">
+                    <span class="depositar-codigo">+351</span>
+                    <span class="depositar-hifen">-</span>
+                    <input type="tel" placeholder="Nº de telemóvel" class="depositar-telemovel input"/>
+                </div>
+
+            </div>
+
+          <div class="mbway-container3">
+            <button class="mbway-pagar button" onclick="openParabens()" style="cursor: pointer;">PAGAR</button>
+            <button class="mbway-cancelar button" onclick="closePayments()" style="cursor: pointer;">CANCELAR</button>
+          </div>
+        </div>
+        <span class="mbway-text2">
+            <span>Será enviada uma notificação para o seu telemóvel.</span>
+            <br />
+            <span>Aceite a transação com o seu PIN MB WAY dentro do</span>
+            <br />
+            <span>tempo limite indicado.</span>
+            <br />
+          </span>
+        <img alt="image" th:src="@{/IMAGES/number2.png}" class="payments-image3" />
+      </div>
+
+
+      <!--CARTAO-->
+      <div class="payments-container1" id="cartao">
+          <span class="payments-pagamentos">
+            <span>PAGAMENTO</span>
+            <br />
+          </span>
+        <img alt="image" th:src="@{/IMAGES/number2.png}" class="payments-image3" />
+        <div class="payments-container2">
+          <img alt="image" th:src="@{/IMAGES/VisaMastercard.png}" class="mbway-image" />
+            <div class="deposito">
+                <div class="deposito-container">
+                    <span class="depositar-texto">Insira o montante:   </span>
+                    <input id="montanteCartao" type="text" class="depositar-input">
+                </div>
+
+                <input type="text" placeholder="Nº de cartão" class="depositar-cartao input"/>
+
+                <div class="deposito-container">
+                    <input type="text" placeholder="mm/yy" class="depositar-cartao1 input" />
+                    <input type="text" placeholder="Código" class="depositar-cartao2 input" />
+                </div>
+            </div>
+          <div class="mbway-container3">
+            <button class="mbway-pagar button" onclick="openParabens()" style="cursor: pointer;">PAGAR</button>
+            <button class="mbway-cancelar button" onclick="closePayments()" style="cursor: pointer;">CANCELAR</button>
+          </div>
+        </div>
+        <span class="mbway-text2">
+            <span>Após selecionar Pagar o valor será debitado.</span>
+            <br />
+          </span>
+      </div>
+
+
+      <!--PARABENS-->
+      <div class="payments-container1" id="parabens">
+          <span class="payments-pagamentos">
+            <span>PARABÉNS !</span>
+            <br />
+          </span>
+        <span class="parabens-text2" onclick="closePayments()" style="cursor: pointer;">X</span>
+        <div class="multibanco-container2">
+            <span class="parabens-texto">
+              <span>Pagamento efetuado com sucesso.</span>
+              <br />
+            </span>
+        </div>
+        <img alt="image" th:src="@{/IMAGES/number3.png}" class="payments-image3" />
+      </div>
+
+      <div id="email" class="white"></div>
+
+
+
+
+          <script th:inline="javascript">
+            var email = [[${ email }]];
+            var name = [[${ name }]];
+
+            document.getElementById("Name").innerHTML = name;
+            document.getElementById("email").innerHTML = email;
+
+
+            var not = [[${ notification }]];
+          </script>
+
+  </div>
+
+</div>
+
+
+
+
+
+<script>
+      // When the user clicks on div, open the popups
+      function openPayments() {
+        document.getElementById("gradient").style.visibility = "visible";
+        document.getElementById("payments").style.visibility = "visible";
+      }
+
+      function openMultibanco() {
+        document.getElementById("gradient").style.visibility = "visible";
+        document.getElementById("payments").style.visibility = "hidden";
+        document.getElementById("multibanco").style.visibility = "visible";
+      }
+
+      function openMBWay() {
+        document.getElementById("gradient").style.visibility = "visible";
+        document.getElementById("payments").style.visibility = "hidden";
+        document.getElementById("mbway").style.visibility = "visible";
+      }
+
+      function openCartao() {
+        document.getElementById("gradient").style.visibility = "visible";
+        document.getElementById("payments").style.visibility = "hidden";
+        document.getElementById("cartao").style.visibility = "visible";
+      }
+
+      function openParabens() {
+        document.getElementById("gradient").style.visibility = "visible";
+        document.getElementById("multibanco").style.visibility = "hidden";
+        document.getElementById("mbway").style.visibility = "hidden";
+        document.getElementById("cartao").style.visibility = "hidden";
+        document.getElementById("parabens").style.visibility = "visible";
+          let montante1 = document.getElementById("montanteMultibanco").value;
+          let montante2 = document.getElementById("montanteMBWay").value;
+          let montante3 = document.getElementById("montanteCartao").value;
+
+          if (montante1 !== ''){
+              payTransference(email, montante1);
+          } else if (montante2 !== ''){
+              payTransference(email, montante2);
+          } else if (montante3 !== ''){
+              payTransference(email, montante3);
+          }
+      }
+
+      function closePayments() {
+        document.getElementById("gradient").style.visibility = "hidden";
+        document.getElementById("payments").style.visibility = "hidden";
+        document.getElementById("multibanco").style.visibility = "hidden";
+        document.getElementById("mbway").style.visibility = "hidden";
+        document.getElementById("cartao").style.visibility = "hidden";
+        document.getElementById("parabens").style.visibility = "hidden";
+        redirectSports(document.getElementById('email').innerText,'AllSports');
+      }
+    </script>
+
+    <script th:src="@{/js/Sports.js}"></script>
+    <script th:src="@{/js/Profile.js}"></script>
+    <script th:src="@{/js/Transactions.js}"></script>
+    <script th:src="@{/js/Bets.js}"></script>
+
+</body>
+
+</html>

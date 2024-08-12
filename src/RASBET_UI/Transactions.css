@@ -1,0 +1,62 @@
+@import "../style.css";
+  
+  .transactions-text1 {
+    color: #16350e;
+  }
+  .transactions-container2 {
+    width: 682px;
+    height: 30px;
+    display: flex;
+    position: relative;
+    margin-top: var(--dl-space-space-halfunit);
+    justify-content: space-between;
+  }
+  .transactions-descricao {
+    left: 190px;
+    position: absolute;
+    font-size: 18px;
+    align-self: center;
+    font-style: normal;
+    font-weight: 500;
+  }
+  .transactions-operacao {
+    left: 520px;
+    position: absolute;
+    font-size: 18px;
+    align-self: center;
+    font-style: normal;
+    font-weight: 500;
+  }
+  .transactions-container3 {
+    width: 720px;
+    height: 390px;
+    overflow: scroll;
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+  .transactions-text31 {
+    padding-top: var(--dl-space-space-oneandhalfunits);
+  }
+  .transactions-container5 {
+    flex: 0 0 auto;
+    left: 105px;
+    width: var(--dl-size-size-xxlarge);
+    height: fit-content;
+    display: flex;
+    position: absolute;
+    margin-top: 7px;
+    align-items: center;
+    flex-direction: column-reverse;
+  }
+  .transactions-container6 {
+    flex: 0 0 auto;
+    left: 485px;
+    width: var(--dl-size-size-xlarge);
+    height: fit-content;
+    display: flex;
+    position: absolute;
+    align-items: center;
+    flex-direction: column-reverse;
+  }

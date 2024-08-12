@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>RASBET</title>
+        
+        <style data-tag="reset-style-sheet">
+          html { line-height: 1.15;}
+          body {  margin: 0;}
+          * {  box-sizing: border-box;  border-width: 0;  border-style: solid;}
+          p,li,ul,pre,div,h1,h2,h3,h4,h5,h6 {  margin: 0;  padding: 0;}
+          button {  background-color: transparent;}
+          button,input,optgroup,select,textarea {  font-family: inherit;  font-size: 100%;  line-height: 1.15;  margin: 0;}
+          button,select {  text-transform: none;}
+          button,[type="button"],[type="reset"],[type="submit"] 
+          button::-moz-focus-inner,[type="button"]::-moz-focus-inner,[type="reset"]::-moz-focus-inner,[type="submit"]::-moz-focus-inner {  border-style: none;  padding: 0;}
+          button:-moz-focus,[type="button"]:-moz-focus,[type="reset"]:-moz-focus,[type="submit"]:-moz-focus {  outline: 1px dotted ButtonText;}
+          a {  color: inherit;  text-decoration: inherit;}
+          input {  padding: 2px 4px;}
+          img {  display: block;}
+          html { scroll-behavior: smooth  }
+        </style>
+        <style data-tag="default-style-sheet">
+          html {
+            font-family: Inter;
+            font-size: 16px;
+          }
+    
+          body {
+            font-weight: 400;
+            font-style:normal;
+            text-decoration: none;
+            text-transform: none;
+            letter-spacing: normal;
+            line-height: 1.15;
+            color: var(--dl-color-gray-black);
+            background-color: var(--dl-color-gray-900);
+            
+          }
+        </style>
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&amp;display=swap"
+          data-tag="font"
+        />
+        <link
+                rel="stylesheet"
+                href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&amp;display=swap"
+                data-tag="font"
+        />
+        <link
+                rel="stylesheet"
+                href="https://fonts.googleapis.com/css2?family=Quattrocento+Sans:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap"
+                data-tag="font"
+        />
+        
+        
+    </head>
+    <body>
+      <div>
+        <link th:href="@{/css/Header.css}" rel="stylesheet" />
+        <link th:href="@{/css/Profile.css}" rel="stylesheet" />
+        <link th:href="@{/css/style.css}" rel="stylesheet" />
+        <link th:href="@{/css/Sports.css}" rel="stylesheet" />
+
+          <header data-role="Header" class="header">
+            <img alt="logo" th:src="@{/IMAGES/Logo.png}" class="header-image" />
+            <div class="header-nav">
+              <nav class="navigation-nav">
+                <a onclick="redirectProfile(email)" class="highlight" >
+                  <span>Perfil</span>
+                </a>
+                <div class="dropdown">
+                  <a onclick="redirectSports(email, 'AllSports')" class="navigation-link">
+                    <span>Desportos</span>
+                  </a>
+                  <div class="dropdown-content">
+                    <a onclick="redirectSports(email, 'AllSports')" >Todos</a>
+                    <a onclick="redirectSports(email, 'Football')">Futebol</a>
+                    <a onclick="redirectSports(email, 'Basket')">Basquetebol</a>
+                    <a onclick="redirectSports(email, 'Tenis')">Ténis</a>
+                    <a onclick="redirectSports(email, 'MotoGP')">MotoGP</a>
+                  </div>
+                </div>              
+                <a onclick="redirectBets(email)"  class="navigation-link">
+                  <span>Apostas</span>
+                </a>
+                <a onclick="redirectTransactions(email)"  class="navigation-link">
+                  <span>Transações</span>
+                </a>
+              </nav>
+            </div>
+            <span>
+              <span class="header-text">Bem vindo, </span> <span class="header-text" id = "name"></span>
+              <br />
+            </span>
+          </header>
+          
+        
+    
+          <div class="profile-container">
+            <div class="profile-container1">
+              <span class="profile-text03">
+                <span id = "nameMain"></span>
+
+              </span>
+              <div class="profile-container4">
+                <span class="profile-text06">Saldo: <span id = "balance"></span>
+                </span>
+                <input type="text" class="profile-moeda" placeholder="EUR" maxlength="3" id = "currency">
+                <button onclick="changeCurrency(email)" class="profile-button2">Alterar</button>
+
+              </div>
+              <div class="profile-container4">
+                <span class="profile-text06">Saldo Bónus: <span id = "bonusBalance"></span>
+                </span>
+                
+              </div>
+              <div class="profile-container2">
+                <button onclick="openWithdraws()" class="profile-button" style="cursor: pointer;">Levantar</button>
+
+                <button onclick="openPayments()"  class="profile-button1" style="cursor: pointer;">Depositar</button>
+
+              </div>
+              <span class="profile-text09">
+                ______________________________________________________________________________________________________
+              </span>
+              <div class="profile-container4">
+                <span class="profile-text06">Código de amigo: </span>
+                <span class="profile-text07" id = "cod"></span>
+              </div>
+              
+              <div class="profile-container3">
+                <div class="profile-container4">
+                  <span class="profile-text10">Mudar nome:</span>
+                  <input id="newName" type="text" placeholder="Nome" class="profile-textinput input" />
+                </div>
+                <div class="profile-container4">
+                  <span class="profile-text10">Mudar email:</span>
+                  <input id="newEmail" type="text" placeholder="Email" class="profile-textinput input"/>
+                </div>
+                <div class="profile-container4">
+                  <span class="profile-text10">Mudar palavra-passe:</span>
+                  <input id="newPp" type="password" placeholder="Palavra-passe" class="profile-textinput input"/>
+                </div>
+                <div class="profile-container4">
+                  <span class="profile-text10">Mudar Morada:</span>
+                  <input id="newAddress" type="text" placeholder="Morada" class="profile-textinput input"/>
+                </div>
+                <div class="profile-container4">
+                  <span class="profile-text10">Mudar Telemóvel:</span>
+                  <input id="newPhone" type="text" placeholder="Telemóvel" class="profile-textinput input"/>
+                </div>
+
+
+                <div class="profile-container4">
+                  <button onclick="requestToken(email)" class="profile-button2" style="cursor: pointer;">Pedir Token</button>
+                  <input id="token" type="text" placeholder="Insira o token enviado" class="profile-textinput input">
+                </div>
+              </div>
+
+
+              <button class="profile-button3" onclick="changeInfo(email)" style="cursor: pointer;">Submit</button>
+
+            </div>
+          </div>
+
+
+          <!--POPUPS-->
+
+<div class="payments-container" id="gradient"></div>
+
+<!--TIPOS DE DEPOSITOS-->
+<div class="payments-container1" id="payments">
+  <span class="payments-pagamentos">
+    <span>DEPOSITAR</span>
+    <br />
+  </span>
+  <div class="payments-container2">
+    <span class="payments-metodo"> <span>Método de depósito:</span> <br /></span>
+    <img alt="image" th:src="@{/IMAGES/Multibanco.png}" class="payments-image" style="cursor: pointer;" onclick="openMultibanco()"/>
+    <img alt="image" th:src="@{/IMAGES/MBWay.png}" class="payments-image1" style="cursor: pointer;" onclick="openMBWay()"/>
+    <img alt="image" th:src="@{/IMAGES/VisaMastercard.png}" class="payments-image2" style="cursor: pointer;" onclick="openCartao()"/>
+  </div>
+  <img th:src="@{/IMAGES/number1.png}" alt="image" class="payments-image3"/>
+</div>
+
+<!--TIPOS DE LEVANTAMENTOS-->
+<div class="payments-container1" id="withdraws">
+  <span class="payments-pagamentos">
+    <span>LEVANTAR</span>
+    <br />
+  </span>
+  <div class="payments-container2">
+    <span class="payments-metodo"> <span>Método de levantamento:</span> <br /></span>
+    
+    <img alt="image" th:src="@{/IMAGES/MBWay.png}" class="payments-image1" style="cursor: pointer;" onclick="openMBWayL()"/>
+    <img alt="image" th:src="@{/IMAGES/VisaMastercard.png}" class="payments-image2" style="cursor: pointer;" onclick="openCartaoL()"/>
+  </div>
+  <img th:src="@{/IMAGES/number1.png}" alt="image" class="payments-image3"/>
+</div>
+
+
+
+<!--MULTIBANCO-->
+<div class="payments-container1" id="multibanco">
+  <span class="payments-pagamentos">
+    <span>DEPOSITAR</span>
+    <br />
+  </span>
+  <img alt="image" th:src="@{/IMAGES/number2.png}" class="payments-image3"/>
+  <div class="multibanco-container2">
+    <img alt="image" th:src="@{/IMAGES/Multibanco.png}" class="mbway-image"/>
+    <div class="deposito">
+      <span class="depositar-texto">Insira o montante a depositar:</span>
+      <input id="montanteMultibanco" type="text" class="depositar-input">
+      <span class="depositar-texto">Referência:   123 456 789</span>
+    </div>
+    
+    <div class="multibanco-container3">
+      <button onclick="openParabens()" class="multibanco-pagar button" style="cursor: pointer;"><span>VERIFICAR</span></button>
+      <button class="multibanco-cancelar button" onclick="closePayments()" style="cursor: pointer;">CANCELAR</button>
+    </div>
+  </div>
+  <span class="mbway-text2">
+    <span>Aguardamos o seu depósito.</span>
+    <br />
+    <span>Por favor verifique a transação após a</span>
+    <br />
+    <span>transferência ter sido concluída.</span>
+    <br />
+  </span>
+</div>
+
+
+
+<!--MBWAY DEPOSITO-->
+<div class="payments-container1" id="mbway">
+  <span class="payments-pagamentos">
+    <span>DEPOSITAR</span>
+    <br />
+  </span>
+  <div class="payments-container2">
+    <img alt="image" th:src="@{/IMAGES/MBWay.png}" class="mbway-image"/>
+    <div class="deposito">
+      <span class="depositar-texto">Insira o montante a depositar:</span>
+      <input id="montanteMBWay" type="text" class="depositar-input">
+
+      <div class="deposito-container">
+        <span class="depositar-codigo">+351</span>
+        <span class="depositar-hifen">-</span>
+        <input type="tel" placeholder="Nº de telemóvel" class="depositar-telemovel input"/>
+      </div>
+      
+    </div>
+    
+    <div class="mbway-container3">
+      <button class="mbway-pagar button" onclick="openParabens()" style="cursor: pointer;">PAGAR</button>
+      <button class="mbway-cancelar button" onclick="closePayments()" style="cursor: pointer;">CANCELAR</button>
+    </div>
+  </div>
+  <span class="mbway-text2">
+    <span>Será enviada uma notificação para o seu telemóvel.</span>
+    <br />
+    <span>Aceite a transação com o seu PIN MB WAY dentro do</span>
+    <br />
+    <span>tempo limite indicado.</span>
+    <br />
+  </span>
+  <img alt="image" th:src="@{/IMAGES/number2.png}" class="payments-image3"/>
+</div>
+
+<!--MBWAY LEVANTAMENTO-->
+<div class="payments-container1" id="mbwayl">
+  <span class="payments-pagamentos">
+    <span>LEVANTAR</span>
+    <br />
+  </span>
+  <div class="payments-container2">
+    <img alt="image" th:src="@{/IMAGES/MBWay.png}" class="mbway-image"/>
+    <div class="deposito">
+      <span class="depositar-texto">Insira o montante a levantar:</span>
+      <input id="lMBWay" type="text" class="depositar-input">
+
+      <div class="deposito-container">
+        <span class="depositar-codigo">+351</span>
+        <span class="depositar-hifen">-</span>
+        <input type="tel" placeholder="Nº de telemóvel" class="depositar-telemovel input"/>
+      </div>
+      
+    </div>
+    
+    <div class="mbway-container3">
+      <button class="mbway-pagar button" onclick="openParabensL()" style="cursor: pointer;">CONCLUIR</button>
+      <button class="mbway-cancelar button" onclick="closeWithdraws()" style="cursor: pointer;">CANCELAR</button>
+    </div>
+  </div>
+  
+  <img alt="image" th:src="@{/IMAGES/number2.png}" class="payments-image3"/>
+</div>
+
+
+
+<!--CARTAO DEPOSITO-->
+  <div class="payments-container1" id="cartao">
+    <span class="payments-pagamentos">
+      <span>DEPOSITAR</span>
+      <br />
+    </span>
+    <img alt="image" th:src="@{/IMAGES/number2.png}" class="payments-image3"/>
+    <div class="payments-container2">
+      <img alt="image" th:src="@{/IMAGES/VisaMastercard.png}" class="mbway-image"/>
+      <div class="deposito">
+        <div class="deposito-container">
+          <span class="depositar-texto">Insira o montante:   </span>
+        <input id="montanteCartao" type="text" class="depositar-input">
+        </div>
+        
+        <input type="text" placeholder="Nº de cartão" class="depositar-cartao input"/>
+        
+        <div class="deposito-container">
+          <input type="text" placeholder="mm/yy" class="depositar-cartao1 input" />
+          <input type="text" placeholder="Código" class="depositar-cartao2 input" />
+        </div>
+      </div>
+
+      <div class="mbway-container3">
+        <button class="mbway-pagar button" onclick="openParabens()" style="cursor: pointer;">PAGAR</button>
+        <button class="mbway-cancelar button" onclick="closePayments()" style="cursor: pointer;">CANCELAR</button>
+      </div>
+    </div>
+    <span class="mbway-text2">
+      <span>Após selecionar Pagar o valor será depositado na</span>
+      <br >
+      <span> sua conta RASBet.</span>
+      <br />
+    </span>
+  </div>
+
+  <!--CARTAO LEVANTAMENTO-->
+  <div class="payments-container1" id="cartaol">
+    <span class="payments-pagamentos">
+      <span>LEVANTAR</span>
+      <br />
+    </span>
+    <img alt="image" th:src="@{/IMAGES/number2.png}" class="payments-image3"/>
+    <div class="payments-container2">
+      <img alt="image" th:src="@{/IMAGES/VisaMastercard.png}" class="mbway-image"/>
+      <div class="deposito">
+        <div class="deposito-container">
+          <span class="depositar-texto">Insira o montante:   </span>
+          <input id="lCartao" type="text" class="depositar-input">
+        </div>
+        
+        <input type="text" placeholder="IBAN" class="depositar-cartao input"/>
+        <span>ou</span>
+        <input type="text" placeholder="SWIFT" class="depositar-cartao input"/>
+        
+      </div>
+
+      <div class="mbway-container3">
+        <button class="mbway-pagar button" onclick="openParabensL()" style="cursor: pointer;">CONCLUIR</button>
+        <button class="mbway-cancelar button" onclick="closeWithdraws()" style="cursor: pointer;">CANCELAR</button>
+      </div>
+    </div>
+    
+  </div>
+
+
+
+  <!--PARABENS-->
+  <div class="payments-container1" id="parabens">
+    <span class="payments-pagamentos">
+      <span>PARABÉNS !</span>
+      <br />
+    </span>
+    <span class="parabens-text2" onclick="closePayments()" style="cursor: pointer;">X</span>
+    <div class="multibanco-container2">
+      <span class="parabens-texto">
+        <span>Depósito efetuado com sucesso.</span>
+        <br />
+      </span>
+    </div>
+    <img alt="image" th:src="@{/IMAGES/number3.png}" class="payments-image3"/>
+  </div>
+
+  <!--PARABENS LEVANTAMENTO-->
+  <div class="payments-container1" id="parabensl">
+    <span class="payments-pagamentos">
+      <span>PARABÉNS !</span>
+      <br />
+    </span>
+    <span class="parabens-text2" onclick="closeWithdraws()" style="cursor: pointer;">X</span>
+    <div class="multibanco-container2">
+      <span class="parabens-texto">
+        <span>Levantamento efetuado com sucesso.</span>
+        <br />
+      </span>
+    </div>
+    <img alt="image" th:src="@{/IMAGES/number3.png}" class="payments-image3"/>
+  </div>
+
+
+
+
+
+        <script th:inline="javascript">
+            var wallet = [[${ json }]];
+            var name = [[${ name }]];
+            var friendcode = [[${ friendcode }]];
+
+            document.getElementById("balance").innerHTML = wallet.balance;
+            document.getElementById("bonusBalance").innerHTML = wallet.bonusBalance;
+            document.getElementById("currency").placeholder = wallet.currency;
+
+            document.getElementById("name").innerHTML = name;
+            document.getElementById("nameMain").innerHTML = name;
+            document.getElementById("cod").innerHTML = friendcode;
+
+            document.write(email);
+          </script>
+
+
+
+
+      </div>
+
+
+      <script>
+
+
+        function openPayments() {
+        document.getElementById("gradient").style.visibility = "visible";
+        document.getElementById("payments").style.visibility = "visible";
+        }
+        
+        function openMultibanco() {
+        document.getElementById("gradient").style.visibility = "visible";
+        document.getElementById("payments").style.visibility = "hidden";
+        document.getElementById("multibanco").style.visibility = "visible";
+        }
+        
+        function openMBWay() {
+        document.getElementById("gradient").style.visibility = "visible";
+        document.getElementById("payments").style.visibility = "hidden";
+        document.getElementById("mbway").style.visibility = "visible";
+        }
+        
+        function openCartao() {
+        document.getElementById("gradient").style.visibility = "visible";
+        document.getElementById("payments").style.visibility = "hidden";
+        document.getElementById("cartao").style.visibility = "visible";
+        }
+        
+        function openParabens() {
+          document.getElementById("gradient").style.visibility = "visible";
+          document.getElementById("multibanco").style.visibility = "hidden";
+          document.getElementById("mbway").style.visibility = "hidden";
+          document.getElementById("cartao").style.visibility = "hidden";
+          document.getElementById("parabens").style.visibility = "visible";
+
+          let montante1 = document.getElementById("montanteMultibanco").value;
+          let montante2 = document.getElementById("montanteMBWay").value;
+          let montante3 = document.getElementById("montanteCartao").value;
+
+          if (montante1 !== ''){
+            makeDeposit(email, montante1);
+          } else if (montante2 !== ''){
+            makeDeposit(email, montante2);
+          } else if (montante3 !== ''){
+            makeDeposit(email, montante3);
+          }
+        }
+        
+        function closePayments() {
+        document.getElementById("gradient").style.visibility = "hidden";
+        document.getElementById("payments").style.visibility = "hidden";
+        document.getElementById("multibanco").style.visibility = "hidden";
+        document.getElementById("mbway").style.visibility = "hidden";
+        document.getElementById("cartao").style.visibility = "hidden";
+        document.getElementById("parabens").style.visibility = "hidden";
+        redirectProfile(email);
+        }
+      
+        function openWithdraws() {
+        document.getElementById("gradient").style.visibility = "visible";
+        document.getElementById("withdraws").style.visibility = "visible";
+        }
+      
+        function openMBWayL() {
+        document.getElementById("gradient").style.visibility = "visible";
+        document.getElementById("withdraws").style.visibility = "hidden";
+        document.getElementById("mbwayl").style.visibility = "visible";
+        }
+      
+        function openCartaoL() {
+        document.getElementById("gradient").style.visibility = "visible";
+        document.getElementById("withdraws").style.visibility = "hidden";
+        document.getElementById("cartaol").style.visibility = "visible";
+        }
+      
+        function openParabensL() {
+        document.getElementById("gradient").style.visibility = "visible";
+        document.getElementById("withdraws").style.visibility = "hidden";
+        document.getElementById("mbwayl").style.visibility = "hidden";
+        document.getElementById("cartaol").style.visibility = "hidden";
+        document.getElementById("parabensl").style.visibility = "visible";
+
+          let l2 = document.getElementById("lMBWay").value;
+          let l3 = document.getElementById("lCartao").value;
+
+          if (l2 !== ''){
+            makeWithdraw(email, l2);
+          } else if (l3 !== ''){
+            makeWithdraw(email, l3);
+          }
+        }
+      
+        function closeWithdraws() {
+        document.getElementById("gradient").style.visibility = "hidden";
+        document.getElementById("withdraws").style.visibility = "hidden";
+        document.getElementById("mbwayl").style.visibility = "hidden";
+        document.getElementById("cartaol").style.visibility = "hidden";
+        document.getElementById("parabensl").style.visibility = "hidden";
+        redirectProfile(email);
+        }
+        
+            </script>
+      <script th:src="@{/js/Sports.js}"></script>
+      <script th:src="@{/js/Profile.js}"></script>
+      <script th:src="@{/js/Transactions.js}"></script>
+      <script th:src="@{/js/Bets.js}"></script>
+    </body>
+</html>

@@ -1,0 +1,142 @@
+@import "style.css";
+
+  .admin-sports-button {
+    top: var(--dl-space-space-twounits);
+    right: 452px;
+    width: 140px;
+    height: 80px;
+    position: absolute;
+    text-align: center;
+    transition: 0.3s;
+    border-radius: 10px;
+  }
+  .admin-sports-button:focus {
+    border-color: #dc6f23;
+    background-color: #dc6f23;
+  }
+  
+  .admin-sports-button1 {
+    top: var(--dl-space-space-twounits);
+    right: 242px;
+    width: 140px;
+    height: 80px;
+    position: absolute;
+    text-align: center;
+    transition: 0.3s;
+    border-radius: 10px;
+  }
+  .admin-sports-button1:focus {
+    border-color: #dc6f23;
+    background-color: #dc6f23;
+  }
+  
+  .admin-sports-button2 {
+    top: var(--dl-space-space-twounits);
+    right: var(--dl-space-space-twounits);
+    width: 140px;
+    height: 80px;
+    position: absolute;
+    text-align: center;
+    transition: 0.3s;
+    border-radius: 10px;
+  }
+  .admin-sports-button2:focus {
+    border-color: #dc6f23;
+    background-color: #dc6f23;
+  }
+  
+  .admin-sports-container4 {
+    margin-left: 89px;
+    width: 303px;
+    height: 144px;
+    position: relative;
+    display:flex;
+    margin-top: var(--dl-space-space-twounits);
+    border-color: #16350e;
+    border-style: dotted;
+    border-width: 2px;
+    border-radius: 10px;
+    align-self: center;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #f3f3f3;
+  }
+  .admin-sports-text16 {
+    font-size: 20px;
+    align-self: center;
+    font-family: Oswald;
+    font-style: normal;
+    font-weight: 500;
+  }
+  .admin-sports-container5 {
+    width: auto;
+    height: auto;
+    display: flex;
+    align-self: center;
+    margin-top: var(--dl-space-space-unit);
+    align-items: flex-start;
+  }
+  .admin-sports-textinput {
+    width: 80px;
+    height: 37px;
+    font-size: 20px;
+    text-align: center;
+    border-color: #16350e;
+    padding-right: 2px;
+    border-width: 2px;
+    margin-right: var(--dl-space-space-unit);
+  }
+  .admin-sports-text19 {
+    font-size: 20px;
+    align-self: center;
+    font-style: normal;
+    font-weight: 700;
+  }
+  .admin-sports-textinput1 {
+    width: 80px;
+    height: 37px;
+    font-size: 20px;
+    text-align: center;
+    padding-right: 2px;
+    margin-left: var(--dl-space-space-unit);
+    border-color: #16350e;
+    border-width: 2px;
+  }
+  .admin-sports-text20 {
+    margin-left: 89px;
+    position: relative;
+    align-self: center;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 700;
+  }
+  .admin-sports-button3{
+    cursor: pointer;
+    width: 112px;
+    margin-top: var(--dl-space-space-halfunit);
+    height: 36px;
+    position: relative;
+    font-style: normal;
+    align-self: center;
+    text-align: center;
+    padding: 8px;
+    font-family: Oswald;
+    font-weight: 500;
+    border-radius: 30px;
+    background-color: #dc6f23;
+  }
+
+  .admin-sports-drop{
+    width: 200px;
+    height: 37px;
+    font-size: 20px;
+    text-align: center;
+    padding-right: 2px;
+    border-color: #16350e;
+    border-width: 2px;
+    border-radius: 3px;
+    background-color: white;
+    color: black;
+  }
+
+  

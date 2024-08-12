@@ -1,0 +1,30 @@
+@import "../style.css";
+
+.odd-input{
+    width: 80px;
+    height: 30px;
+    font-size: 20px;
+    font-style: normal;
+    border-color: #16350e;
+    border-width: 2px;
+    text-align: center;
+    border-radius: 8px;
+    padding: var(--dl-space-space-halfunit);
+}
+
+.odd-button {
+    align-self: flex-end;
+    color: var(--dl-color-gray-white);
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    border-radius: 30px;
+    padding-top: var(--dl-space-space-unit);
+    padding-left: var(--dl-space-space-threeunits);
+    padding-right: var(--dl-space-space-threeunits);
+    padding-bottom: var(--dl-space-space-unit);
+    background-color: rgb(220, 111, 35);
+    position: fixed;
+    right: var(--dl-space-space-threeunits);
+    bottom: var(--dl-space-space-threeunits);
+}

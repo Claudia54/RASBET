@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RASBET</title>
+
+    <style data-tag="reset-style-sheet">
+        html { line-height: 1.15;}
+        body {  margin: 0;}
+        * {  box-sizing: border-box;  border-width: 0;  border-style: solid;}
+        p,li,ul,pre,div,h1,h2,h3,h4,h5,h6 {  margin: 0;  padding: 0;}
+        button {  background-color: transparent;}
+        button,input,optgroup,select,textarea {  font-family: inherit;  font-size: 100%;  line-height: 1.15;  margin: 0;}
+        button,select {  text-transform: none;}
+        button,[type="button"],[type="reset"],[type="submit"]
+        button::-moz-focus-inner,[type="button"]::-moz-focus-inner,[type="reset"]::-moz-focus-inner,[type="submit"]::-moz-focus-inner {  border-style: none;  padding: 0;}
+        button:-moz-focus,[type="button"]:-moz-focus,[type="reset"]:-moz-focus,[type="submit"]:-moz-focus {  outline: 1px dotted ButtonText;}
+        a {  color: inherit;  text-decoration: inherit;}
+        input {  padding: 2px 4px;}
+        img {  display: block;}
+        html { scroll-behavior: smooth  }
+    </style>
+    <style data-tag="default-style-sheet">
+        html {
+            font-family: Inter;
+            font-size: 16px;
+        }
+
+        body {
+            font-weight: 400;
+            font-style: normal;
+            text-decoration: none;
+            text-transform: none;
+            letter-spacing: normal;
+            line-height: 1.15;
+            background-color: var(--dl-color-gray-900);
+
+        }
+    </style>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&amp;display=swap"
+        data-tag="font" />
+
+</head>
+
+<body>
+    <script th:src="@{/js/Admin_Main.js}"></script>
+    <script th:src="@{/js/Admin_Manage.js}"></script>
+    <div>
+        <link th:href="@{/css/Header.css}" rel="stylesheet" />
+        <link th:href="@{/css/Profile.css}" rel="stylesheet" />
+        <link th:href="@{/css/Admin_Manage.css}" rel="stylesheet" />
+
+        <header data-role="Header" class="header">
+            <img alt="logo" th:src="@{/IMAGES/Logo.png}" class="header-image" />
+            <div class="header-nav">
+                <nav class="navigation-nav ">
+                    <a onclick="redirectAdminPromo(document.getElementById('email1').innerText)" class="navigation-link">
+                        <span>Promoções</span>
+                    </a>
+                    <div class="dropdown">
+                        <a onclick="redirectAdminSports(document.getElementById('email1').innerText, 'AllSports')" class="navigation-link">
+                            <span>Gerir Jogos</span>
+                        </a>
+                        <div class="dropdown-content">
+                            <a onclick="redirectAdminSports(document.getElementById('email1').innerText, 'AllSports')">Todos</a>
+                            <a onclick="redirectAdminSports(document.getElementById('email1').innerText, 'Football')">Futebol</a>
+                            <a onclick="redirectAdminSports(document.getElementById('email1').innerText, 'Basket')">Basquetebol</a>
+                            <a onclick="redirectAdminSports(document.getElementById('email1').innerText, 'Tenis')">Ténis</a>
+                            <a onclick="redirectAdminSports(document.getElementById('email1').innerText, 'MotoGP')">MotoGP</a>
+                        </div>
+                    </div>
+                    <a onclick="redirectAdminManage(document.getElementById('email1').innerText)" class="highlight">
+                        <span>Funcionários</span>
+                    </a>
+                </nav>
+            </div>
+            <span>
+                <span class="header-text">Bem vindo, </span><span class="header-text" id="name"></span>
+
+                <!-- IR BUSCAR NOME AO BACKEND -->
+
+                <br />
+            </span>
+        </header>
+
+        <div class="profile-container">
+            <div class="profile-container1">
+                <span class="profile-text03">
+                    <span>Adicionar Funcionário</span>
+                    <br />
+                </span>
+
+                <select id="role" class="admin-manage-select">
+                    <option value="Administrador" selected>Administrador</option>
+                    <option value="Especialista">Especialista</option>
+                </select>
+                <div class="admin-manage-container2">
+                    <input id="nome" type="text" placeholder="Nome" class="admin-manage-text input" />
+                    <input id="email" type="text" placeholder="Email" class="admin-manage-text input" />
+                    <input id="pp" type="password" placeholder="Palavra-passe" class="admin-manage-text input" />
+                    <input id="morada" type="text" placeholder="Morada" class="admin-manage-text input" />
+                    <div class="admin-manage-container3">
+                        <input id="nif" type="text" placeholder="NIF" class="admin-manage-text2 input" />
+                        <input id="cc" type="text" placeholder="CC" class="admin-manage-text3 input" />
+                    </div>
+                    <div class="admin-manage-container3">
+                        <input id="date" type="date" placeholder="Data de nascimento"
+                            class="admin-manage-text2 input" />
+                        <input id="telem" type="text" placeholder="Telemóvel" class="admin-manage-text3 input" />
+                    </div>
+                </div>
+
+                <button onclick="MyFunction(this)" style="cursor: pointer;" id="btn" class="admin-manage-button button">
+                    <!-- 
+                    ADICIONAR FUNCIONARIO AO BACKEND 
+                  -->
+                    <span>
+                        <span>Adicionar</span>
+                        <br />
+                    </span>
+                </button>
+
+            </div>
+        </div>
+        <!-- 
+              MANDAR TODOS OS INPUTS PARA BACKEND 
+            -->
+
+    </div>
+
+    <div id="email1" style="color: #ffffff"></div>
+
+    <script th:inline="javascript">
+        var email = [[${ email }]];
+        var name = [[${ name }]];
+        document.getElementById("name").innerHTML = name;
+        document.getElementById("email1").innerHTML = email;
+    </script>
+</body>
+
+</html>

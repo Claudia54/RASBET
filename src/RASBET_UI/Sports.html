@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RASBET</title>
+
+  <style data-tag="reset-style-sheet">
+    html { line-height: 1.15;}
+    body {  margin: 0;}
+    * {  box-sizing: border-box;  border-width: 0;  border-style: solid;}
+    p,li,ul,pre,div,h1,h2,h3,h4,h5,h6 {  margin: 0;  padding: 0;}
+    button {  background-color: transparent;}
+    button,input,optgroup,select,textarea {  font-family: inherit;  font-size: 100%;  line-height: 1.15;  margin: 0;}
+    button,select {  text-transform: none;}
+    button,[type="button"],[type="reset"],[type="submit"]
+    button::-moz-focus-inner,[type="button"]::-moz-focus-inner,[type="reset"]::-moz-focus-inner,[type="submit"]::-moz-focus-inner {  border-style: none;  padding: 0;}
+    button:-moz-focus,[type="button"]:-moz-focus,[type="reset"]:-moz-focus,[type="submit"]:-moz-focus {  outline: 1px dotted ButtonText;}
+    a {  color: inherit;  text-decoration: inherit;}
+    input {  padding: 2px 4px;}
+    img {  display: block;}
+    html { scroll-behavior: smooth  }
+  </style>
+  <style data-tag="default-style-sheet">
+    html {
+      font-family: Inter;
+      font-size: 16px;
+    }
+
+    body {
+      font-weight: 400;
+      font-style: normal;
+      text-decoration: none;
+      text-transform: none;
+      letter-spacing: normal;
+      line-height: 1.15;
+      color: var(--dl-color-gray-black);
+      background-color: var(--dl-color-gray-white);
+
+    }
+  </style>
+  <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&amp;display=swap"
+        data-tag="font" />
+  <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&amp;display=swap"
+        data-tag="font" />
+  <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Quattrocento+Sans:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap"
+        data-tag="font" />
+
+
+</head>
+
+<body>
+<div>
+  <link th:href="@{/css/Header.css}" rel="stylesheet" />
+  <link th:href="@{/css/Sports.css}" rel="stylesheet" />
+  <link th:href="@{/css/style.css}" rel="stylesheet" />
+
+
+  <header data-role="Header" class="header">
+    <img alt="logo" th:src="@{/IMAGES/Logo.png}" class="header-image" />
+    <div class="header-nav">
+      <nav class="navigation-nav ">
+        <button class="navigation-link" onclick="MyFunction(document.getElementById('email').innerText)">
+          <span>Perfil</span>
+          <!--MyFunction(this)-->
+        </button>
+        <div class="dropdown">
+          <a href="Sports.html" class="highlight">
+            <span>Desportos</span>
+          </a>
+          <div class="dropdown-content">
+            <a href="Sports.html">Todos</a>
+            <a href="/home/Football">Futebol</a>
+            <a href="/home/Basket">Basquetebol</a>
+            <a href="Sports.html#Tenis">Ténis</a>
+            <a href="Sports.html#MotoGP">MotoGP</a>
+          </div>
+        </div>
+        <a href="Bets.html" class="navigation-link">
+          <span>Apostas</span>
+        </a>
+        <a href="Transactions.html" class="navigation-link">
+          <span>Transações</span>
+        </a>
+      </nav>
+    </div>
+    <span>
+          <span class="header-text"> Bem vindo, </span><span class="header-text" id="Name"></span>
+
+      <!-- IR BUSCAR NOME AO BACKEND -->
+
+
+          <br />
+        </span>
+  </header>
+
+  <div th:each="game : ${games}">
+    <div class="sports-container">
+      <div class="sports-container01">
+        <div class="sports-container02">
+            <span class="sports-text03">
+              <div th:each="g, stats: ${game.participantsOdds}">
+                <div th:text="${g.key}"></div>
+                <th:block th:if="${stats.index + 1 != game.participantsOdds.size()}"> VS </th:block>
+              </div>
+
+            </span>
+          <span class="sports-text06">
+              <div th:text="${game.date}"></div>
+              <br />
+            </span>
+        </div>
+        <div class="sports-container13">
+          <div th:each="g, stats: ${game.participantsOdds}">
+            <!-- primeira caixa -->
+            <th:block th:if="${(stats.index%3) eq 0}">
+
+              <button class="sports-button button" th:id = ${game.idGame} onclick="alert(this.id)">
+                <div class="sports-text09" >
+                  <div text="games.participantsOdds"></div>
+                  <div th:text="${g.key}"></div>
+                  <div text="participantsOdds"></div>
+                  <div th:text="${g.value}"></div>
+                  <!--
+                     SUBSTITUIR EQUIPA E ODD
+                     ADD ONCLICK NO BUTTON PARA ADICIONAR AO RECIBO DE APOSTAS
+                  -->
+                </div>
+              </button>
+            </th:block>
+            <th:block th:if="${game.x != 0 and (stats.index%3) eq 0}">
+              <!-- segunda caixa caso empate-->
+              <button class="sports-button1 button" th:id = ${game.idGame} onclick="AddJson(this.id)">
+                      <span class="sports-text09">
+                        <span>Empate</span>
+                        <div th:text="${game.x}"></div>
+                        <!--
+                           SUBSTITUIR ODD
+                           ADD ONCLICK NO BUTTON PARA ADICIONAR AO RECIBO DE APOSTAS
+                        -->
+                      </span>
+              </button>
+            </th:block>
+
+            <th:block th:unless="${((stats.index%3) eq 0) or (game.x != 0 and (stats.index%3) eq 0) }">
+              <!--<th:block th:if="${((stats.index%3) eq 1 and game.idSport !=3) or (game.idSport eq 3 and (stats.index%3) eq 2)}">-->
+              <!-- segunda e terceira caixa-->
+              <button class="sports-button1 button" th:id = ${game.idGame} onclick="alert(this.id)">
+                      <span class="sports-text09">
+                        <div text="games.participantsOdds"></div>
+                        <div th:text="${g.key}"></div>
+                        <div text="participantsOdds"></div>
+                        <div th:text="${g.value}"></div>
+                        <!--
+                           SUBSTITUIR EQUIPA E ODD
+                           ADD ONCLICK NO BUTTON PARA ADICIONAR AO RECIBO DE APOSTAS
+                        -->
+                      </span>
+              </button>
+            </th:block>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+
+
+
+    <div class="sports-container03">
+      <span class="sports-text24">BOLETIM</span>
+      <div class="sports-container04">
+        <button class="sports-button3 button">Simples</button>
+        <button class="sports-button4 button">Múltiplas</button>
+      </div>
+      <!--                      ALTERAR O BOTÃO QUE FICA A ESCURO
+                  -->
+      <div class="sports-container05">
+        <div class="sports-container06">
+              <span class="sports-text25">
+                <span>EquipaA - Equipa B</span>
+                <br />
+                <!--
+                         SUBSTITUIR EQUIPAS
+                      -->
+              </span>
+          <span class="sports-text28">X</span>
+        </div>
+        <div class="sports-container07">
+              <span class="sports-text29">
+                <span>Venceder do jogo: Equipa A</span>
+                <br />
+                <!--
+                         SUBSTITUIR EQUIPA
+                      -->
+              </span>
+          <span class="sports-text32">
+                <span>Cota : xx</span>
+                <br />
+            <!--
+                     SUBSTITUIR XX PELA COTA
+                  -->
+              </span>
+        </div>
+      </div>
+
+
+      <div class="sports-container08">
+        <div class="sports-container09">
+              <span class="sports-text35">
+                <span>Cota : xx</span>
+                <br />
+                <!--
+                         SUBSTITUIR XX PELA COTA TOTAL
+                      -->
+              </span>
+          <span class="sports-text38">€</span>
+          <div class="sports-container10">
+            <span class="sports-text39">Montante</span>
+            <input type="input" placeholder="0" class="sports-textinput input" />
+            <!--
+                     SUBSTITUIR PLACEHOLDER = 0 PELO VALOR APOSTADO
+                     SUBSTITUIR MOEDA CASO NECESSÁRIO
+                  -->
+          </div>
+        </div>
+        <div class="sports-container11">
+          <div class="sports-container12">
+                <span class="sports-text40">
+                  <span>Total de ganhos</span>
+                  <br />
+                </span>
+            <span class="sports-text43">
+                  <span>XX €</span>
+              <!--
+                     SUBSTITUIR XX PELO TOTAL DE GANHOS POSSÍVEIS
+                  -->
+                  <br />
+                </span>
+          </div>
+          <button class="sports-button5 button" onclick="openPayments()">APOSTAR</button>
+          <!--
+                     ASSOCIAR AÇÃO QUANDO SE CARREGA NO BOTAO APOSTAR (GUARDAR NA CONTA e pagar)
+                    -->
+
+        </div>
+      </div>
+    </div>
+
+    <!--POPUPS-->
+
+    <div class="payments-container" id="gradient"></div>
+
+    <!--TIPOS DE PAGAMENTOS-->
+    <div class="payments-container1" id="payments">
+          <span class="payments-pagamentos">
+            <span>PAGAMENTO</span>
+            <br />
+          </span>
+      <div class="payments-container2">
+        <span class="payments-metodo"> <span>Método de pagamento:</span> <br /></span>
+        <img alt="image" th:src="@{/IMAGES/Multibanco.png}" class="payments-image" onclick="openMultibanco()" />
+        <img alt="image" th:src="@{/IMAGES/MBWay.png}" class="payments-image1" onclick="openMBWay()" />
+        <img alt="image" th:src="@{/IMAGES/VisaMastercard.png}" class="payments-image2" onclick="openCartao()" />
+      </div>
+      <img th:src="@{/IMAGES/number1.png}" alt="image" class="payments-image3" />
+    </div>
+
+
+    <!--MULTIBANCO-->
+    <div class="payments-container1" id="multibanco">
+          <span class="payments-pagamentos">
+            <span>PAGAMENTO</span>
+            <br />
+          </span>
+      <img alt="image" th:src="@{/IMAGES/number2.png}" class="payments-image3" />
+      <div class="multibanco-container2">
+        <img alt="image" th:src="@{/IMAGES/Multibanco.png}" class="mbway-image" />
+        <span class="multibanco-codigo">Referência: 123 456 789</span>
+        <div class="multibanco-container3">
+          <button onclick="openParabens()" class="multibanco-pagar button">
+                <span>
+                  <span>VERIFICAR PAGAMENTO</span>
+                  <br />
+                </span>
+          </button>
+          <button class="multibanco-cancelar button" onclick="closePayments()">CANCELAR</button>
+        </div>
+      </div>
+      <span class="mbway-text2">
+            <span>Aguardamos o seu pagamento.</span>
+            <br />
+            <span>Por favor verifique a transação após a</span>
+            <br />
+            <span>transferência ter sido concluída.</span>
+            <br />
+          </span>
+    </div>
+
+
+    <!--MBWAY-->
+    <div class="payments-container1" id="mbway">
+          <span class="payments-pagamentos">
+            <span>PAGAMENTO</span>
+            <br />
+          </span>
+      <div class="payments-container2">
+        <img alt="image" th:src="@{/IMAGES/MBWay.png}" class="mbway-image" />
+        <span class="mbway-codigo">+351</span>
+        <span class="mbway-hifen">-</span>
+        <input type="tel" placeholder="Nº de telemóvel" class="mbway-telemovel input" />
+        <div class="mbway-container3">
+          <button class="mbway-pagar button" onclick="openParabens()">PAGAR</button>
+          <button class="mbway-cancelar button" onclick="closePayments()">CANCELAR</button>
+        </div>
+      </div>
+      <span class="mbway-text2">
+            <span>Será enviada uma notificação para o seu telemóvel.</span>
+            <br />
+            <span>Aceite a transação com o seu PIN MB WAY dentro do</span>
+            <br />
+            <span>tempo limite indicado.</span>
+            <br />
+          </span>
+      <img alt="image" th:src="@{/IMAGES/number2.png}" class="payments-image3" />
+    </div>
+
+
+    <!--CARTAO-->
+    <div class="payments-container1" id="cartao">
+          <span class="payments-pagamentos">
+            <span>PAGAMENTO</span>
+            <br />
+          </span>
+      <img alt="image" th:src="@{/IMAGES/number2.png}" class="payments-image3" />
+      <div class="payments-container2">
+        <img alt="image" th:src="@{/IMAGES/VisaMastercard.png}" class="mbway-image" />
+        <input type="text" placeholder="Nº de cartão" class="carto-cartao input" />
+        <input type="text" placeholder="mm/yy" class="carto-cartao1 input" />
+        <input type="text" placeholder="Código" class="carto-cartao2 input" />
+        <div class="mbway-container3">
+          <button class="mbway-pagar button" onclick="openParabens()">PAGAR</button>
+          <button class="mbway-cancelar button" onclick="closePayments()">CANCELAR</button>
+        </div>
+      </div>
+      <span class="mbway-text2">
+            <span>Após selecionar Pagar o valor será debitado.</span>
+            <br />
+          </span>
+    </div>
+
+
+    <!--PARABENS-->
+    <div class="payments-container1" id="parabens">
+          <span class="payments-pagamentos">
+            <span>PARABÉNS !</span>
+            <br />
+          </span>
+      <span class="parabens-text2" onclick="closePayments()">X</span>
+      <div class="multibanco-container2">
+            <span class="parabens-texto">
+              <span>Pagamento efetuado com sucesso.</span>
+              <br />
+            </span>
+      </div>
+      <img alt="image" th:src="@{/IMAGES/number3.png}" class="payments-image3" />
+    </div>
+
+    <!--<div id="email"></div>-->
+
+
+
+
+    <script th:inline="javascript">
+      var email = [[${ email }]];
+      var name = [[${ name }]];
+      document.getElementById("Name").innerHTML = name;
+      document.getElementById("email").innerHTML = email;
+    </script>
+
+  </div>
+
+</div>
+
+
+
+
+
+<script>
+  // When the user clicks on div, open the popups
+  function openPayments() {
+    document.getElementById("gradient").style.visibility = "visible";
+    document.getElementById("payments").style.visibility = "visible";
+  }
+
+  function openMultibanco() {
+    document.getElementById("gradient").style.visibility = "visible";
+    document.getElementById("payments").style.visibility = "hidden";
+    document.getElementById("multibanco").style.visibility = "visible";
+  }
+
+  function openMBWay() {
+    document.getElementById("gradient").style.visibility = "visible";
+    document.getElementById("payments").style.visibility = "hidden";
+    document.getElementById("mbway").style.visibility = "visible";
+  }
+
+  function openCartao() {
+    document.getElementById("gradient").style.visibility = "visible";
+    document.getElementById("payments").style.visibility = "hidden";
+    document.getElementById("cartao").style.visibility = "visible";
+  }
+
+  function openParabens() {
+    document.getElementById("gradient").style.visibility = "visible";
+    document.getElementById("multibanco").style.visibility = "hidden";
+    document.getElementById("mbway").style.visibility = "hidden";
+    document.getElementById("cartao").style.visibility = "hidden";
+    document.getElementById("parabens").style.visibility = "visible";
+  }
+
+  function closePayments() {
+    document.getElementById("gradient").style.visibility = "hidden";
+    document.getElementById("payments").style.visibility = "hidden";
+    document.getElementById("multibanco").style.visibility = "hidden";
+    document.getElementById("mbway").style.visibility = "hidden";
+    document.getElementById("cartao").style.visibility = "hidden";
+    document.getElementById("parabens").style.visibility = "hidden";
+  }
+</script>
+
+<script th:src="@{/js/Sports.js}"></script>
+
+</body>
+
+</html>

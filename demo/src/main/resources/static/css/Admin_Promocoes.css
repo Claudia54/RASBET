@@ -1,0 +1,78 @@
+@import "style.css";
+
+.promotion-container {
+    width: auto;
+    height: 550px;
+    overflow: scroll;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+.promotion-container1 {
+    width: 900px;
+    height: 140px;
+    display: flex;
+    flex-direction: row;
+    margin-top: var(--dl-space-space-twounits);
+    padding: 40px;
+    align-items: center;
+    border-color: #16350e;
+    border-width: 2px;
+    border-style: dotted;
+    border-radius: 20px;
+    background-color: white;
+}
+.promotion-text {
+    font-size: 20px;
+    font-style: normal;
+    text-align: center;
+    font-weight: 700;
+    line-height: 1.7;
+  }
+
+.promotion-text2 {
+    font-size: 20px;
+    width: 500px;
+    height: auto;
+    font-style: normal;
+    text-align: center;
+    font-weight: 700;
+    line-height: 1.7;
+}
+.promotion-button {
+    color: #dc6f23;
+    width: 130px;
+    height: 80px;
+    background-color: var(--dl-color-gray-900);
+    transition: 0.3s;
+    border-radius: 10px;
+    position: absolute;
+    right: 30px; 
+}
+.promotion-button:focus {
+    background-color: #dc6f23;
+    color: white;
+}
+.promotion-button1 {
+    color: #dc6f23;
+    width: 130px;
+    height: 80px;
+    background-color: var(--dl-color-gray-900);
+    transition: 0.3s;
+    border-radius: 10px;
+    position: absolute;
+    right: 190px;
+}
+.promotion-button1:focus {
+    background-color: #dc6f23;
+    color: white;
+}
+
+.promotion-textbt {
+  font-size: 20px;
+  font-style: normal;
+  text-align: center;
+  font-weight: 700;
+  line-height: 1.7;
+}

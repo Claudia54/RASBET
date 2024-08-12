@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>RASBET</title>
+        
+        <style data-tag="reset-style-sheet">
+          html { line-height: 1.15;}
+          body {  margin: 0;}
+          * {  box-sizing: border-box;  border-width: 0;  border-style: solid;}
+          p,li,ul,pre,div,h1,h2,h3,h4,h5,h6 {  margin: 0;  padding: 0;}
+          button {  background-color: transparent;}
+          button,input,optgroup,select,textarea {  font-family: inherit;  font-size: 100%;  line-height: 1.15;  margin: 0;}
+          button,select {  text-transform: none;}
+          button,[type="button"],[type="reset"],[type="submit"] 
+          button::-moz-focus-inner,[type="button"]::-moz-focus-inner,[type="reset"]::-moz-focus-inner,[type="submit"]::-moz-focus-inner {  border-style: none;  padding: 0;}
+          button:-moz-focus,[type="button"]:-moz-focus,[type="reset"]:-moz-focus,[type="submit"]:-moz-focus {  outline: 1px dotted ButtonText;}
+          a {  color: inherit;  text-decoration: inherit;}
+          input {  padding: 2px 4px;}
+          img {  display: block;}
+          html { scroll-behavior: smooth  }
+        </style>
+        <style data-tag="default-style-sheet">
+          html {
+            font-family: Inter;
+            font-size: 16px;
+          }
+    
+          body {
+            font-weight: 400;
+            font-style:normal;
+            text-decoration: none;
+            text-transform: none;
+            letter-spacing: normal;
+            line-height: 1.15;
+            background-color: var(--dl-color-gray-900);
+          }
+        </style>
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&amp;display=swap"
+          data-tag="font"
+        />
+        
+        
+    </head>
+    <body>
+      <div>
+        <link href="Header.css" rel="stylesheet" />
+        <link href="Profile.css" rel="stylesheet" />
+        <link href="Bets.css" rel="stylesheet" />
+
+          <header data-role="Header" class="header">
+            <img
+              alt="logo"
+              src="../IMAGES/Logo.png"
+              class="header-image"
+            />
+            <div class="header-nav">
+              <nav class="navigation-nav">
+                <a href="Profile.html" class="navigation-link">
+                  <span>Perfil</span>
+                </a>
+                <div class="dropdown">
+                  <a href="Sports.html" class="navigation-link">
+                    <span>Desportos</span>
+                  </a>
+                  <div class="dropdown-content">
+                    <a href="Sports.html">Todos</a>
+                    <a href="#">Futebol</a>
+                    <a href="#">Basquetebol</a>
+                    <a href="#">Ténis</a>
+                    <a href="#">MotoGP</a>
+                  </div>
+                </div>              
+                <a href="Bets.html" class="highlight">
+                  <span>Apostas</span>
+                </a>
+                <a href="Transactions.html" class="navigation-link">
+                  <span>Transações</span>
+                </a>
+              </nav>
+            </div>
+            <span>
+              <span class="header-text">Bem vindo, </span>
+                  
+                      <!-- IR BUSCAR NOME AO BACKEND -->
+
+              
+              <br />
+            </span>
+            </header>
+          
+        
+
+            <div class="profile-container">
+              <div class="profile-container1">
+                <span class="profile-text03">
+                  <span>Nome Apelido</span>
+                      
+                          <!-- IR BUSCAR NOME E APELIDO AO BACKEND -->
+    
+                </span>
+                <span class="profile-text06">
+                  <span>Histórico de apostas</span>
+               
+                </span>
+                <span class="apostas-text09">
+                  ______________________________________________________________________________________________________
+                </span>
+                <div class="apostas-container2">
+                 
+            
+	              <details >
+	              	<summary >
+	              		
+                      Montante Apostado     x €           |            Total de ganhos     xx €
+                    
+	              	</summary>
+	              		<div >
+                      Equipa A - Equipa B <br /><br />
+                      Resultado: Equipa/Empate/Pendente           |           ODD     x 
+                      
+
+                      <!-- LOOP PARA OS JOGOS DENTRO DE CADA APOSTA-->
+                    </div>
+	              </details>
+                <details >
+	              	<summary >
+	              		
+                      Montante Apostado     x €           |            Total de ganhos     xx €
+                    
+	              	</summary>
+	              		<div >
+                      Equipa A - Equipa B <br /><br />
+                      Resultado: Equipa/Empate/Pendente           |           ODD     x 
+
+                      <!-- LOOP PARA OS JOGOS DENTRO DE CADA APOSTA-->
+                    </div>
+                    <div >
+                      Equipa A - Equipa B <br /><br />
+                      Resultado: Equipa/Empate/Pendente           |           ODD     x 
+
+                      <!-- LOOP PARA OS JOGOS DENTRO DE CADA APOSTA-->
+                    </div>
+	              </details>
+                <details >
+	              	<summary >
+	              		
+                      Montante Apostado     x €           |            Total de ganhos     xx €
+                    
+	              	</summary>
+	              		<div >
+                      Equipa A - Equipa B <br /><br />
+                      Resultado: Equipa/Empate/Pendente           |           ODD     x 
+                      
+
+                      <!-- LOOP PARA OS JOGOS DENTRO DE CADA APOSTA-->
+                    </div>
+	              </details>
+
+                
+                </div>
+              
+
+
+
+
+
+
+              </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+    
+        
+        </div>
+
+
+    </body>
+</html>
